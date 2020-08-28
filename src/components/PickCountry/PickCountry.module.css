@@ -1,0 +1,11 @@
+.FormControl{
+    width:28%;
+    margin-bottom: 5% !important;
+}
+
+@media (max-width:770px)
+{
+    .FormControl{
+        width:40%;
+    }
+}
