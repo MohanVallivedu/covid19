@@ -1,11 +1,12 @@
 import React from 'react';
 import {useState,useEffect} from 'react';
 import  {fetchDailyData} from '../../api'
-import {Line,Bar} from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 import styles from './Chart.module.css';
+import ChartType from './ChartType';
 
 
-const Chart = ({data:{confirmed,recovered,deaths},country}) => {
+const Chart = ({data,country,checked}) => {
 
     const [dataDaily, setdataDaily] = useState([]);
 
@@ -14,6 +15,7 @@ const Chart = ({data:{confirmed,recovered,deaths},country}) => {
            setdataDaily(await fetchDailyData());
         }
         fetchData();
+        
     },[]);
 
     const LineChart = (
@@ -38,34 +40,11 @@ const Chart = ({data:{confirmed,recovered,deaths},country}) => {
         : null
     );
 
-    const BarChart = (
-         confirmed ?
-        (<Bar 
-            data={{
-                labels:['Cofirmed','Deaths','Recovered'],
-                datasets:[{
-                    label:'People',
-                    backgroundColor:[
-                        'rgba(0, 0, 255, 0.5)',
-                        'rgba(255, 0, 0, 0.5)',
-                        'rgba(0, 255, 0, 0.5)'
-                    ],
-                    data:[confirmed.value,deaths.value,recovered.value]
-                }]
-            }}
-            options={{
-                legend:{display:false},
-                title: {display:true, text:`Showing ${country} country`}
-            }}
-        
-        />)
-        : null
-    );
-
+    
 
     return(
         <div className={styles.container}>
-            {country ? BarChart : LineChart}
+            {country ? <ChartType data={data} country={country} checked={checked}/> : LineChart }
         </div>
     )
 

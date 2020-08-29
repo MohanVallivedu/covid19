@@ -15,8 +15,6 @@ const PickCountry = ({handleCountryChange}) => {
         countriesList();
     },[setcountries]);
 
-
-    console.log(countries);
     return(
         <>
         <FormControl className={styles.FormControl} >
